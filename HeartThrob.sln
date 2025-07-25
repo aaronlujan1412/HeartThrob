@@ -4,6 +4,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine", "Engine\Engine.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game", "Game\Game.csproj", "{053BC986-C1FC-4BE9-BD1E-38158892B0FD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EngineMain", "EngineMain\EngineMain.csproj", "{12106011-B7A0-484E-AF84-33D065CB7325}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameHost", "GameHost\GameHost.csproj", "{B69BE456-D622-41B6-AFA3-EB0E70A93B37}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +22,13 @@ Global
 		{053BC986-C1FC-4BE9-BD1E-38158892B0FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{053BC986-C1FC-4BE9-BD1E-38158892B0FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{053BC986-C1FC-4BE9-BD1E-38158892B0FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12106011-B7A0-484E-AF84-33D065CB7325}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12106011-B7A0-484E-AF84-33D065CB7325}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12106011-B7A0-484E-AF84-33D065CB7325}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12106011-B7A0-484E-AF84-33D065CB7325}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B69BE456-D622-41B6-AFA3-EB0E70A93B37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B69BE456-D622-41B6-AFA3-EB0E70A93B37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B69BE456-D622-41B6-AFA3-EB0E70A93B37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B69BE456-D622-41B6-AFA3-EB0E70A93B37}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

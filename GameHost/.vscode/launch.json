@@ -5,10 +5,10 @@
     "version": "0.2.0",
     "configurations": [
       {
-        "name": "C#: Game Debug",
+        "name": "C#: GameHost Debug",
         "type": "dotnet",
         "request": "launch",
-        "projectPath": "${workspaceFolder}/Game.csproj"
+        "projectPath": "${workspaceFolder}/GameHost.csproj"
       }
     ],
   }
