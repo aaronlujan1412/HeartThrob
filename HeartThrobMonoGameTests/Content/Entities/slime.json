@@ -1,0 +1,17 @@
+{
+  "Name": "Slime Man",
+  "Transform": {
+    "Position": "0 0",
+    "Rotation": 0.0,
+    "Scale":1.0
+  },
+  "Velocity": {
+    "Value": "0 0"
+  },
+  "Sprite": {
+    "Texture": "slimeMan",
+    "Color": "#428bca00",
+    "IsEquipped": false
+  },
+  "PlayerControlled": true
+}

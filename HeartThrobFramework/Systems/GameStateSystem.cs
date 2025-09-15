@@ -1,0 +1,42 @@
+using HeartThrobFramework.Components;
+using HeartThrobFramework.Core;
+using HeartThrobFramework.Core.GameData;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+
+namespace HeartThrobFramework.Systems;
+
+public class GameStateSystem : ISystem
+{
+    public event Action<GameStates> OnGameStateChanged;
+    public void Update(World world, float deltaTime)
+    {
+        var worldEntity = world.Query<GameState>();
+
+        foreach (var entity in worldEntity)
+        {
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
+                Keyboard.GetState().IsKeyDown(Keys.Escape))
+            {
+                if (world.State == GameStates.TimeStopped)
+                {
+                    world.UpdateGameState(GameStates.TimeAdvancing);
+                    return;
+                }
+                world.UpdateGameState(GameStates.TimeStopped);
+            }
+        }
+    }
+
+    public void Render(World world, SpriteBatch spriteBatch)
+    {
+        return;
+    }
+
+    public void ChangeGameState(World world, GameStates state, int worldEntity)
+    {
+        world.UpdateComponent<GameState>(worldEntity, new GameState(state));
+        return;
+    }
+}

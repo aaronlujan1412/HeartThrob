@@ -1,0 +1,12 @@
+using HeartThrobFramework.Components;
+
+namespace HeartThrobFramework.Utils;
+
+public class EntityTemplate
+{
+    public string Name { get; set; }
+    public TransformData? Transform { get; set; }
+    public VelocityData? Velocity { get; set; }
+    public SpriteData? Sprite { get; set; }
+    public bool PlayerControlled { get; set; }
+}

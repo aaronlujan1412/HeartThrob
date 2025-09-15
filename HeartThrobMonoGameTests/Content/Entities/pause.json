@@ -1,0 +1,13 @@
+{
+  "Name": "Pause Screen",
+  "Transform": {
+    "Position": "0 0",
+    "Rotation": 0.0,
+    "Scale": 1.0
+  },
+  "Sprite": {
+    "Texture": "Menu",
+    "Color": "#428bca00",
+    "IsEquipped": false
+  }
+}
