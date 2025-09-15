@@ -1,5 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36401.2 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeartThrobFramework", "HeartThrobFramework\HeartThrobFramework.csproj", "{911EE88C-2142-425A-B584-55CB008C9074}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeartThrobTests", "HeartThrobTests\HeartThrobTests.csproj", "{08D836EC-B174-471E-8F49-61A14BD26285}"
@@ -30,5 +33,8 @@ Global
 		{5CFB871D-E3B5-4824-9ABA-40C0AE9DA9F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5CFB871D-E3B5-4824-9ABA-40C0AE9DA9F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5CFB871D-E3B5-4824-9ABA-40C0AE9DA9F5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal
