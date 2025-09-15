@@ -7,15 +7,17 @@ namespace HeartThrobFramework.Systems;
 
 public class InputSystem : ISystem
 {
+    public required World World { get; set; }
+
     private const float moveSpeed = 100f;
-    public void Update(World world, float deltaTime)
+    public void Update(float deltaTime)
     {
-        var entities = world.Query<PlayerControlledComponent, VelocityComponent>();
+        var entities = World.Query<PlayerControlledComponent, VelocityComponent>();
         var keyboardState = Keyboard.GetState();
         
         foreach (var entity in entities)
         {
-            var velocity = world.GetComponent<VelocityComponent>(entity);
+            var velocity = World.GetComponent<VelocityComponent>(entity);
 
             velocity.Value.X = 0;
             velocity.Value.Y = 0;
@@ -41,9 +43,11 @@ public class InputSystem : ISystem
             {
                 velocity.Value.Y = 100f;
             }
+
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
+                Keyboard.GetState().IsKeyDown(Keys.Escape))
             
-            
-            world.UpdateComponent(entity, velocity);
+            World.UpdateComponent(entity, velocity);
         }
     }
 

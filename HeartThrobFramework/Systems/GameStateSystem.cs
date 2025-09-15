@@ -9,6 +9,9 @@ namespace HeartThrobFramework.Systems;
 
 public class GameStateSystem : ISystem
 {
+    public World World { get; set; }
+
+
     public event Action<GameStates> OnGameStateChanged;
     public void Update(World world, float deltaTime)
     {
@@ -16,8 +19,6 @@ public class GameStateSystem : ISystem
 
         foreach (var entity in worldEntity)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
-                Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
                 if (world.CurrentState == GameStates.TimeStopped)
                 {

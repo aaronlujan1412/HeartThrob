@@ -4,27 +4,47 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace HeartThrobFramework.Systems;
 
-public class RenderSystem : ISystem
+public class RenderSystem(SpriteBatch spriteBatch) : ISystem
 {
-    public void Update(World world, float deltaTime)
+    public required World World { get; set; }
+
+    private readonly SpriteBatch _spriteBatch = spriteBatch;
+
+    public void Update(float deltaTime)
     {
         return;
     }
 
-    public void Render(World world, SpriteBatch spriteBatch)
+    public void Render(SpriteBatch spriteBatch)
     {
-        var entities = world.Query<TransformComponent, SpriteComponent>();
+        var entities = World.Query<TransformComponent, SpriteComponent>();
 
         foreach (int entity in entities)
         {
-            var transform = world.GetComponent<TransformComponent>(entity);
-            var sprite = world.GetComponent<SpriteComponent>(entity);
+            var transform = World.GetComponent<TransformComponent>(entity);
+            var sprite = World.GetComponent<SpriteComponent>(entity);
             
             spriteBatch.Draw(
                 sprite.Texture,
                 transform.Position,
                 sprite.Color);
         }
+    }
+
+    public void RenderEntity(SpriteBatch spriteBatch, int entity)
+    {
+        World.
+
+
+        world.AddComponent<TransformComponent>(entity)
+
+        var transform = world.GetComponent<TransformComponent>(entity);
+        var sprite = world.GetComponent<SpriteComponent>(entity);
+
+        spriteBatch.Draw(
+            sprite.Texture,
+            transform.Position,
+            sprite.Color);
     }
 
     public void RenderAll(World world, SpriteBatch spriteBatch)

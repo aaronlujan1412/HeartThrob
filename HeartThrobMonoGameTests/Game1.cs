@@ -12,21 +12,20 @@ namespace HeartThrobMonoGameTests;
 
 public class Game1 : Game
 {
-    private World _world;
-    private GraphicsDeviceManager _graphics;
+    private readonly World _world;
+    private readonly GraphicsDeviceManager _graphics;
+    private readonly EntityFactory _entityFactory;
     private SpriteBatch _spriteBatch;
-    private EntityFactory _entityFactory;
     private int _pauseEntity = -1;
-
 
     public Game1()
     {
-        _world = new World();
         _graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
-        _entityFactory = new EntityFactory(_world, Content);
         IsMouseVisible = true;
         
+        _world = new World();
+        _entityFactory = new EntityFactory(_world, Content);
         
         _world.OnGameStateChanged += HandleGameStateChange;
     }
@@ -70,16 +69,17 @@ public class Game1 : Game
         _world.RegisterComponent<GameStateComponent>();
         _world.RegisterComponent<ClickableComponent>();
 
-        _world.RegisterSystem<RenderSystem>();
-        _world.RegisterSystem<InputSystem>();
-        _world.RegisterSystem<MovementSystem>();
-        _world.RegisterSystem<GameStateSystem>();
-        
-        int worldEntity = _world.CreateEntity();
-        _world.AddComponent<GameStateComponent>(worldEntity, new GameStateComponent(GameStates.TimeAdvancing));
+        var renderSystem = new RenderSystem(_spriteBatch);
+        _world.RegisterSystem(renderSystem);
 
-        var pauseTemplate = Content.Load<EntityTemplate>("Entities/pause");
-        
+        var inputSystem = new InputSystem();
+        _world.RegisterSystem(inputSystem);
+
+        var movementSystem = new MovementSystem();
+        _world.RegisterSystem(movementSystem);
+
+        var gameStateSystem = new GameStateSystem();
+        _world.RegisterSystem(gameStateSystem);
         
         base.Initialize();
     }
@@ -90,7 +90,6 @@ public class Game1 : Game
 
 
         var slimeTemplate = Content.Load<EntityTemplate>("Entities/slime");
-
         int slimeEntity = _entityFactory.Create(slimeTemplate);
 
     }
@@ -150,28 +149,22 @@ public class Game1 : Game
         {
             var pauseTemplate = Content.Load<EntityTemplate>("Entities/pause");
             _pauseEntity = _entityFactory.Create(pauseTemplate);
-        } else if (newState == GameStates.TimeAdvancing)
+        } else if (_pauseEntity != -1)
         {
-            if (_pauseEntity != -1)
-            {
-                _world.DestroyEntity(_pauseEntity);
-                _pauseEntity = -1;
-            }
+            _world.DestroyEntity(_pauseEntity);
+            _pauseEntity = -1;
         }
     }
-    
-    public event EntityEventHandler MainPlayerCreated;
-    
-    public delegate void EntityEventHandler(int entityId);
 
     protected override void Update(GameTime gameTime)
     {
-        
-        float delta = (float)gameTime.ElapsedGameTime.TotalSeconds;
-        
-        
-        _world.Update(delta);
-        // EquipPlayer(delta);
+        if (_world.CurrentState == GameStates.TimeAdvancing)
+        {
+            _world.Update((float)gameTime.ElapsedGameTime.TotalSeconds);
+        }
+        else
+        {
+        }
 
         base.Update(gameTime);
     }
@@ -179,18 +172,16 @@ public class Game1 : Game
     protected override void Draw(GameTime gameTime)
     {
         GraphicsDevice.Clear(Color.CornflowerBlue);
-
         _spriteBatch.Begin();
+        _world.GetSystem<RenderSystem>().Render(_spriteBatch);
 
-//        if (_world.State == GameStates.TimeStopped)
-//        {
-//            foreach (var entity in _world.Query<Clickable>())
-//            {
-//                _world.AddComponent;
-//            }
-//        }
+
+        if (_world.CurrentState == GameStates.TimeStopped && _pauseEntity != -1)
+        {
+            _world.GetSystem<RenderSystem>().RenderEntity(_spriteBatch, _pauseEntity);
+        }
         
-        
+
         _world.Render(_spriteBatch);
         _spriteBatch.End();
 

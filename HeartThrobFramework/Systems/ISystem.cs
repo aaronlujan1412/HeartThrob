@@ -5,7 +5,9 @@ namespace HeartThrobFramework.Systems;
 
 public interface ISystem
 {
-    void Update(World world, float deltaTime);
+    public World World { get; set; }
 
-    void Render(World world, SpriteBatch spriteBatch);
+    void Update(float deltaTime);
+
+    void Render(SpriteBatch spriteBatch);
 }

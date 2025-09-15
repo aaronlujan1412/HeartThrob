@@ -102,9 +102,15 @@ public class World
         return _cm.GetComponent<T>(entityId);
     }
 
-    public void RegisterSystem<T>() where T : ISystem
+    public void RegisterSystem(ISystem system)
     {
-        _sm.RegisterSystem<T>();
+        system.World = this;
+        _sm.RegisterSystem(system);
+    }
+
+    public T GetSystem<T>() where T : class, ISystem
+    {
+        return _sm.GetSystem<T>();
     }
 
     public void SetGameState(GameStates newState)
