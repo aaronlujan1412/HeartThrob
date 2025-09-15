@@ -1,4 +1,4 @@
-using HeartThrobFramework.GameData;
+using HeartThrobFramework.GameData.ComponentDatas;
 
 namespace HeartThrobFramework.GameData.Template;
 

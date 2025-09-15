@@ -1,4 +1,4 @@
-﻿namespace HeartThrobFramework.GameData
+﻿namespace HeartThrobFramework.GameData.ComponentDatas
 {
     public record struct GameStateData
     {

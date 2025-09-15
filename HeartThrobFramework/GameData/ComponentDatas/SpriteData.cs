@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 
-namespace HeartThrobFramework.GameData;
+namespace HeartThrobFramework.GameData.ComponentDatas;
 
 public record struct SpriteData
 {

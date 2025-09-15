@@ -3,9 +3,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using HeartThrobFramework.Core;
 using HeartThrobFramework.Components;
-using HeartThrobFramework.Core.GameData;
 using HeartThrobFramework.Systems;
 using HeartThrobFramework.GameData.Template;
+using HeartThrobFramework.GameData.StateEnums;
 
 namespace HeartThrobMonoGameTests;
 

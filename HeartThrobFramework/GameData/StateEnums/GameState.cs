@@ -1,4 +1,4 @@
-namespace HeartThrobFramework.Core.GameData;
+namespace HeartThrobFramework.GameData.StateEnums;
 
 public enum GameStates
 {

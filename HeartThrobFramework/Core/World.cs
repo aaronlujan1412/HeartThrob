@@ -1,8 +1,8 @@
 using HeartThrobFramework.Components;
 using System.Reflection;
-using HeartThrobFramework.Core.GameData;
 using HeartThrobFramework.Systems;
 using Microsoft.Xna.Framework.Graphics;
+using HeartThrobFramework.GameData.StateEnums;
 
 namespace HeartThrobFramework.Core;
 

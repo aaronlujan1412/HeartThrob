@@ -1,6 +1,6 @@
 ﻿using MonoGame.Extended;
 
-namespace HeartThrobFramework.GameData
+namespace HeartThrobFramework.GameData.ComponentDatas
 {
     public record struct CollisionData
     {

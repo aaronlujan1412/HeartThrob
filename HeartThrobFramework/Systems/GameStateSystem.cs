@@ -1,6 +1,6 @@
 using HeartThrobFramework.Components;
 using HeartThrobFramework.Core;
-using HeartThrobFramework.Core.GameData;
+using HeartThrobFramework.GameData.StateEnums;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;

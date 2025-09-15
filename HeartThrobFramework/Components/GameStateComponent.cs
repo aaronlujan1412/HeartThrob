@@ -1,4 +1,4 @@
-using HeartThrobFramework.Core.GameData;
+using HeartThrobFramework.GameData.StateEnums;
 
 namespace HeartThrobFramework.Components;
 
