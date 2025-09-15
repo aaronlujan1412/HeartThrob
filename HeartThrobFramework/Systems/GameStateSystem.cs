@@ -12,7 +12,7 @@ public class GameStateSystem : ISystem
     public event Action<GameStates> OnGameStateChanged;
     public void Update(World world, float deltaTime)
     {
-        var worldEntity = world.Query<GameState>();
+        var worldEntity = world.Query<GameStateComponent>();
 
         foreach (var entity in worldEntity)
         {
@@ -36,7 +36,7 @@ public class GameStateSystem : ISystem
 
     public void ChangeGameState(World world, GameStates state, int worldEntity)
     {
-        world.UpdateComponent<GameState>(worldEntity, new GameState(state));
+        world.UpdateComponent<GameStateComponent>(worldEntity, new GameStateComponent(state));
         return;
     }
 }

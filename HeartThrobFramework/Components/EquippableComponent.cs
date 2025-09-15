@@ -1,6 +1,6 @@
 namespace HeartThrobFramework.Components;
 
-public struct Equippable : IComponent
+public struct EquippableComponent : IComponent
 {
     
 }

@@ -58,16 +58,16 @@ public class Game1 : Game
     
     protected override void Initialize()
     {
-        _world.RegisterComponent<Transform>();
-        _world.RegisterComponent<Velocity>();
-        _world.RegisterComponent<Sprite>();
-        _world.RegisterComponent<PlayerControlled>();
-        _world.RegisterComponent<Equippable>();
-        _world.RegisterComponent<Inventory>();
-        _world.RegisterComponent<Equipment>();
-        _world.RegisterComponent<Collision>();
-        _world.RegisterComponent<GameState>();
-        _world.RegisterComponent<Clickable>();
+        _world.RegisterComponent<TransformComponent>();
+        _world.RegisterComponent<VelocityComponent>();
+        _world.RegisterComponent<SpriteComponent>();
+        _world.RegisterComponent<PlayerControlledComponent>();
+        _world.RegisterComponent<EquippableComponent>();
+        _world.RegisterComponent<InventoryComponent>();
+        _world.RegisterComponent<EquipmentComponent>();
+        _world.RegisterComponent<CollisionComponent>();
+        _world.RegisterComponent<GameStateComponent>();
+        _world.RegisterComponent<ClickableComponent>();
 
         _world.RegisterSystem<RenderSystem>();
         _world.RegisterSystem<InputSystem>();
@@ -75,7 +75,7 @@ public class Game1 : Game
         _world.RegisterSystem<GameStateSystem>();
         
         int worldEntity = _world.CreateEntity();
-        _world.AddComponent<GameState>(worldEntity, new GameState(GameStates.TimeAdvancing));
+        _world.AddComponent<GameStateComponent>(worldEntity, new GameStateComponent(GameStates.TimeAdvancing));
 
         var pauseTemplate = Content.Load<EntityTemplate>("Entities/pause");
         

@@ -1,6 +1,6 @@
 namespace HeartThrobFramework.Components;
 
-public struct Inventory : IComponent
+public struct InventoryComponent : IComponent
 {
     public List<int> items;
 }

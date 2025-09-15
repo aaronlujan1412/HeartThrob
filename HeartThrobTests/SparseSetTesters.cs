@@ -13,9 +13,9 @@ public class SparseSetTests
     [InlineData(100)]
     public void Has_WhenAComponentIsPresent_ShouldReturnTrue(int entityId)
     {
-        var set = TestHelpers.CreateSetFor<PlayerControlled>();
+        var set = TestHelpers.CreateSetFor<PlayerControlledComponent>();
         
-        set.Add(entityId, new PlayerControlled());
+        set.Add(entityId, new PlayerControlledComponent());
         
         Assert.True(set.Has(entityId));
     }
@@ -25,7 +25,7 @@ public class SparseSetTests
     [InlineData(30)]
     public void Has_WhenComponentDoesNotExist_ShouldReturnFalse(int entityId)
     {
-        var set = TestHelpers.CreateSetFor<PlayerControlled>();
+        var set = TestHelpers.CreateSetFor<PlayerControlledComponent>();
         
         var result = set.Has(entityId);
 
@@ -34,9 +34,9 @@ public class SparseSetTests
     
     [Theory]
     [ClassData(typeof(TestHelpers.SparseSetPlayerControlledComponentTestData))]
-    public void SparseSet_RunAdd_AddsComponent(int entityId, PlayerControlled component)
+    public void SparseSet_RunAdd_AddsComponent(int entityId, PlayerControlledComponent component)
     {
-        var set = TestHelpers.CreateSetFor<PlayerControlled>();
+        var set = TestHelpers.CreateSetFor<PlayerControlledComponent>();
         set.Add(entityId, component);
         
         Assert.True(set.Has(entityId));
@@ -46,9 +46,9 @@ public class SparseSetTests
 
     [Theory]
     [ClassData(typeof(TestHelpers.SparseSetPlayerControlledComponentTestData))]
-    public void Remove_RunRemove_RemovesComponentFromSet(int entityId, PlayerControlled component)
+    public void Remove_RunRemove_RemovesComponentFromSet(int entityId, PlayerControlledComponent component)
     {
-        var set = TestHelpers.CreateSetFor<PlayerControlled>();
+        var set = TestHelpers.CreateSetFor<PlayerControlledComponent>();
         
         set.Add(entityId, component);
         set.Remove(entityId);

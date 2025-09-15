@@ -1,6 +1,6 @@
 namespace HeartThrobFramework.Components;
 
-public struct Equipment : IComponent
+public struct EquipmentComponent : IComponent
 {
     public int MainHandEntity;
 }

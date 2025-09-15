@@ -10,12 +10,12 @@ public class InputSystem : ISystem
     private const float moveSpeed = 100f;
     public void Update(World world, float deltaTime)
     {
-        var entities = world.Query<PlayerControlled, Velocity>();
+        var entities = world.Query<PlayerControlledComponent, VelocityComponent>();
         var keyboardState = Keyboard.GetState();
         
         foreach (var entity in entities)
         {
-            var velocity = world.GetComponent<Velocity>(entity);
+            var velocity = world.GetComponent<VelocityComponent>(entity);
 
             velocity.Value.X = 0;
             velocity.Value.Y = 0;

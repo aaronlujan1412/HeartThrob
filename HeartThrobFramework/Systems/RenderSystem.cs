@@ -13,12 +13,12 @@ public class RenderSystem : ISystem
 
     public void Render(World world, SpriteBatch spriteBatch)
     {
-        var entities = world.Query<Transform, Sprite>();
+        var entities = world.Query<TransformComponent, SpriteComponent>();
 
         foreach (int entity in entities)
         {
-            var transform = world.GetComponent<Transform>(entity);
-            var sprite = world.GetComponent<Sprite>(entity);
+            var transform = world.GetComponent<TransformComponent>(entity);
+            var sprite = world.GetComponent<SpriteComponent>(entity);
             
             spriteBatch.Draw(
                 sprite.Texture,
@@ -29,6 +29,6 @@ public class RenderSystem : ISystem
 
     public void RenderAll(World world, SpriteBatch spriteBatch)
     {
-        var entities = world.Query<Transform, Sprite>();
+        var entities = world.Query<TransformComponent, SpriteComponent>();
     }
 }

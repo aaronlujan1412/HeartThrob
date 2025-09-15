@@ -32,9 +32,9 @@ public class TestHelpers
     {
         public SparseSetPlayerControlledComponentTestData()
         {
-            Add(0, new PlayerControlled());
-            Add(30, new PlayerControlled());
-            Add(100, new PlayerControlled());
+            Add(0, new PlayerControlledComponent());
+            Add(30, new PlayerControlledComponent());
+            Add(100, new PlayerControlledComponent());
         }
     }
 

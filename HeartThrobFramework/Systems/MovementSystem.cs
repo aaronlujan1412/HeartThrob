@@ -11,16 +11,16 @@ public class MovementSystem : ISystem
 {
     public void Update(World world, float deltaTime)
     {
-        var entities = world.Query<Transform, Velocity>();
+        var entities = world.Query<TransformComponent, VelocityComponent>();
 
         foreach (var entity in entities)
         {
-            var transform = world.GetComponent<Transform>(entity);;
-            var velocity = world.GetComponent<Velocity>(entity);
+            var transform = world.GetComponent<TransformComponent>(entity);;
+            var velocity = world.GetComponent<VelocityComponent>(entity);
 
             transform.Position += (velocity.Value * deltaTime);
             
-            world.UpdateComponent<Transform>(entity, transform);;
+            world.UpdateComponent<TransformComponent>(entity, transform);;
         }
     }
 

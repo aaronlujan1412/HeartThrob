@@ -25,7 +25,7 @@ public class EntityFactory
         {
             var transformData = template.Transform.Value;
 
-            var transformComponent = new Transform
+            var transformComponent = new TransformComponent
             {
                 Position = transformData.Position,
                 Rotation = transformData.Rotation,
@@ -38,7 +38,7 @@ public class EntityFactory
         {
             var velocityData = template.Velocity.Value;
 
-            var velocityComponent = new Velocity
+            var velocityComponent = new VelocityComponent
             {
                 Value = velocityData.Value,
             };
@@ -51,7 +51,7 @@ public class EntityFactory
             
             var texture = _contentManager.Load<Texture2D>(spriteData.Texture);
 
-            var spriteComponent = new Sprite
+            var spriteComponent = new SpriteComponent
             {
                 Texture = texture,
                 Color = spriteData.Color,
@@ -62,7 +62,7 @@ public class EntityFactory
 
         if (template.PlayerControlled)
         {
-            _world.AddComponent(entityId, new PlayerControlled());
+            _world.AddComponent(entityId, new PlayerControlledComponent());
         }
 
         return entityId;

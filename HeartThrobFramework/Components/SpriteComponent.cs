@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace HeartThrobFramework.Components;
 
-public struct Sprite : IComponent
+public struct SpriteComponent : IComponent
 {
     public Texture2D Texture;
     public Color Color;
