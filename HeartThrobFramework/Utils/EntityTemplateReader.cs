@@ -1,7 +1,5 @@
 using HeartThrobFramework.Components;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler;
 
 namespace HeartThrobFramework.Utils;
 

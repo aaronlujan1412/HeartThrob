@@ -1,7 +1,4 @@
-using System;
-using HeartThrobFramework.Components;
 using HeartThrobFramework.Utils;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content.Pipeline;
 using Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler;
 
@@ -44,7 +41,6 @@ public class EntityTemplateWriter : ContentTypeWriter<EntityTemplate>
     }
     public override string GetRuntimeReader(TargetPlatform targetPlatform)
     {
-        return
-            "HeartThrobFramework.Utils.EntityTemplateReader, HeartThrobFramework, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null";
+        return typeof(EntityTemplateReader).AssemblyQualifiedName;
     }
 }
