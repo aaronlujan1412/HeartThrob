@@ -1,13 +1,12 @@
 ﻿using System.IO;
 using Microsoft.Xna.Framework.Content.Pipeline;
-using TImport = System.String;
 
 namespace HeartThrobFramework.ContentPipeline;
 
 [ContentImporter(".json", DisplayName = "JsonImporter", DefaultProcessor = "EntityTemplateProcessor")]
-public class JsonImporter : ContentImporter<TImport>
+public class JsonImporter : ContentImporter<string>
 {
-    public override TImport Import(string filename, ContentImporterContext context)
+    public override string Import(string filename, ContentImporterContext context)
     {
         return File.ReadAllText(filename);
     }
