@@ -9,13 +9,26 @@ namespace HeartThrobFramework.Core;
 
 public class World
 {
-    public event Action<GameStates> OnGameStateChanged;
-    
-    ComponentManager _cm = new ComponentManager();
-    EntityManager _em = new EntityManager();
-    SystemManager _sm = new SystemManager();
+    ComponentManager _cm;
+    EntityManager _em;
+    SystemManager _sm;
 
-    public GameStates State = GameStates.TimeAdvancing;
+    public event Action<GameStates> OnGameStateChanged;
+
+    private readonly int _gameStateEntity;
+
+    public GameStates CurrentState { get; private set; }
+
+    public World()
+    {
+        _em = new EntityManager();
+        _cm = new ComponentManager();
+        _sm = new SystemManager();
+
+        _gameStateEntity = _em.CreateNewEntity();
+        _cm.AddComponent(_gameStateEntity, new GameStateComponent(GameStates.TimeAdvancing));
+        CurrentState = GameStates.TimeAdvancing;
+    }
 
     public int CreateEntity()
     {
@@ -94,9 +107,14 @@ public class World
         _sm.RegisterSystem<T>();
     }
 
-    public void UpdateGameState(GameStates newState)
+    public void SetGameState(GameStates newState)
     {
-        State = newState;
+        if (CurrentState == newState)
+            return;
+
+        CurrentState = newState;
+
+        _cm.UpdateComponent(_gameStateEntity, new GameStateComponent(newState));
         OnGameStateChanged?.Invoke(newState);
     }
     
@@ -119,15 +137,45 @@ public class World
         where T1 : IComponent
         where T2 : IComponent
     {
-        return _cm.GetEntities<T1, T2>();
+        var entityArrays = new[]
+        {
+            _cm.GetComponentPool<T1>().GetEntities(),
+            _cm.GetComponentPool<T2>().GetEntities()
+        }.OrderBy(e => e.Count()).ToArray();
+
+        foreach (int entity in entityArrays[0])
+        {
+            if (entityArrays[1].Contains(entity))
+            {
+                yield return entity;
+            }
+
+            if (HasComponent<T1>(entity) && HasComponent<T2>(entity))
+            {
+                yield return entity;
+            }
+        }
     }
-    
-    public IEnumerable<int> Query<T1, T2, T3>() 
+
+    public IEnumerable<int> Query<T1, T2, T3>()
         where T1 : IComponent
         where T2 : IComponent
         where T3 : IComponent
     {
-        return _cm.GetEntities<T1, T2, T3>();
+        var entityArrays = new[]
+        {
+            _cm.GetComponentPool<T1>().GetEntities(),
+            _cm.GetComponentPool<T2>().GetEntities(),
+            _cm.GetComponentPool<T3>().GetEntities()
+        }.OrderBy(e => e.Count()).ToArray();
+
+        foreach (int entity in entityArrays[0])
+        {
+            if (entityArrays[1].Contains(entity) && entityArrays[2].Contains(entity))
+            {
+                yield return entity;
+            }
+        }
     }
     
     public IEnumerable<int> Query<T1, T2, T3, T4>()
@@ -136,7 +184,21 @@ public class World
         where T3 : IComponent
         where T4 : IComponent
     {
-        return _cm.GetEntities<T1, T2, T3, T4>();
+        var entityArrays = new[]
+        {
+            _cm.GetComponentPool<T1>().GetEntities(),
+            _cm.GetComponentPool<T2>().GetEntities(),
+            _cm.GetComponentPool < T3 >().GetEntities(),
+            _cm.GetComponentPool < T4 >().GetEntities()
+        }.OrderBy(e => e.Count()).ToArray();
+
+        foreach (int entity in entityArrays[0])
+        {
+            if (entityArrays[1].Contains(entity) && entityArrays[2].Contains(entity)  && entityArrays[3].Contains(entity))
+            {
+                yield return entity;
+            }
+        }
     }
 
     public static IEnumerable<Type> GetAllComponentTypes(Assembly assembly)

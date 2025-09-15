@@ -19,12 +19,12 @@ public class GameStateSystem : ISystem
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
                 Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
-                if (world.State == GameStates.TimeStopped)
+                if (world.CurrentState == GameStates.TimeStopped)
                 {
-                    world.UpdateGameState(GameStates.TimeAdvancing);
+                    world.SetGameState(GameStates.TimeAdvancing);
                     return;
                 }
-                world.UpdateGameState(GameStates.TimeStopped);
+                world.SetGameState(GameStates.TimeStopped);
             }
         }
     }
