@@ -23,7 +23,7 @@ public class EquipmentSystem : ISystem
                 {
                     var inventory = world.GetComponent<InventoryComponent>(playerId);
                     
-                    inventory.items.Add(itemId);
+                    inventory.Items.Add(itemId);
 
                     world.RemoveComponent<TransformComponent>(itemId);
                     world.RemoveComponent<SpriteComponent>(itemId);

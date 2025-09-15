@@ -1,3 +1,4 @@
+using HeartThrobFramework.GameData.Template;
 using System.IO;
 using System.Text.Json;
 

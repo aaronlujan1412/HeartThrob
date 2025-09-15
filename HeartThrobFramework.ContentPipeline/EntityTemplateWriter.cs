@@ -1,3 +1,4 @@
+using HeartThrobFramework.GameData.Template;
 using HeartThrobFramework.Utils;
 using Microsoft.Xna.Framework.Content.Pipeline;
 using Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler;

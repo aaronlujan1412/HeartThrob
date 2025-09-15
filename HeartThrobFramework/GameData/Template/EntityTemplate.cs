@@ -1,6 +1,6 @@
 using HeartThrobFramework.GameData;
 
-namespace HeartThrobFramework.Utils;
+namespace HeartThrobFramework.GameData.Template;
 
 public class EntityTemplate
 {

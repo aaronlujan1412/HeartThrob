@@ -5,7 +5,7 @@ using HeartThrobFramework.Core;
 using HeartThrobFramework.Components;
 using HeartThrobFramework.Core.GameData;
 using HeartThrobFramework.Systems;
-using HeartThrobFramework.Utils;
+using HeartThrobFramework.GameData.Template;
 
 namespace HeartThrobMonoGameTests;
 

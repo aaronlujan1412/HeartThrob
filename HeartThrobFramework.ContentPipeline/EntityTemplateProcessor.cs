@@ -1,5 +1,5 @@
 ﻿using System.Text.Json;
-using HeartThrobFramework.Utils;
+using HeartThrobFramework.GameData.Template;
 using Microsoft.Xna.Framework.Content.Pipeline;
 using MonoGame.Extended.Serialization.Json;
 
