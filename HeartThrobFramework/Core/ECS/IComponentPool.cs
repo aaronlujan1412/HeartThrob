@@ -1,4 +1,4 @@
-namespace HeartThrobFramework.Core;
+namespace HeartThrobFramework.Core.ECS;
 
 public interface IComponentPool
 {

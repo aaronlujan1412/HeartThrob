@@ -1,7 +1,7 @@
 using HeartThrobFramework.Systems;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace HeartThrobFramework.Core;
+namespace HeartThrobFramework.Core.ECS;
 
 public class SystemManager
 {

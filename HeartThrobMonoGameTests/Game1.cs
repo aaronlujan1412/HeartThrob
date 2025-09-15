@@ -6,6 +6,7 @@ using HeartThrobFramework.Components;
 using HeartThrobFramework.Systems;
 using HeartThrobFramework.GameData.Template;
 using HeartThrobFramework.GameData.StateEnums;
+using HeartThrobFramework.Factories;
 
 namespace HeartThrobMonoGameTests;
 

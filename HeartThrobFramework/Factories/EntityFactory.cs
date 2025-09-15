@@ -1,10 +1,11 @@
 using HeartThrobFramework.Components;
+using HeartThrobFramework.Core;
 using HeartThrobFramework.GameData.Template;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace HeartThrobFramework.Core;
+namespace HeartThrobFramework.Factories;
 
 public class EntityFactory
 {

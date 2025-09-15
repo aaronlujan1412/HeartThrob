@@ -1,6 +1,6 @@
 using HeartThrobFramework.Utils;
 
-namespace HeartThrobFramework.Core;
+namespace HeartThrobFramework.Core.ECS;
 
 public class EntityManager
 {

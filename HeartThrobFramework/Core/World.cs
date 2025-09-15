@@ -3,6 +3,7 @@ using System.Reflection;
 using HeartThrobFramework.Systems;
 using Microsoft.Xna.Framework.Graphics;
 using HeartThrobFramework.GameData.StateEnums;
+using HeartThrobFramework.Core.ECS;
 
 namespace HeartThrobFramework.Core;
 

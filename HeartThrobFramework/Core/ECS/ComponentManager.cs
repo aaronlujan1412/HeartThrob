@@ -2,7 +2,7 @@ using System.Reflection;
 using HeartThrobFramework.Components;
 using HeartThrobFramework.Utils;
 
-namespace HeartThrobFramework.Core;
+namespace HeartThrobFramework.Core.ECS;
 
 public class ComponentManager
 {

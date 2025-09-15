@@ -1,5 +1,5 @@
 using HeartThrobFramework.Components;
-using HeartThrobFramework.Core;
+using HeartThrobFramework.Core.ECS;
 using HeartThrobFramework.Utils;
 using System.Reflection;
 

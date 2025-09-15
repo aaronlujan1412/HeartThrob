@@ -1,7 +1,7 @@
 using HeartThrobFramework.Components;
 using HeartThrobFramework.Utils;
 
-namespace HeartThrobFramework.Core;
+namespace HeartThrobFramework.Core.ECS;
 
 
 public class SparseSet<T> : IComponentPool where T : IComponent
@@ -100,7 +100,7 @@ public class SparseSet<T> : IComponentPool where T : IComponent
         {
             throw new InvalidOperationException($"Entity {entityId} does not have a {typeof(T)} component.");
         }
-        return (_components[_sparse[entityId]]);
+        return _components[_sparse[entityId]];
     }
 
     public bool Has(int entityId)
@@ -110,7 +110,7 @@ public class SparseSet<T> : IComponentPool where T : IComponent
         
         int denseIndex = _sparse[entityId];
         
-        return(denseIndex != SentinelValue && denseIndex < _count && _entities[denseIndex] == entityId);
+        return denseIndex != SentinelValue && denseIndex < _count && _entities[denseIndex] == entityId;
     }
 
     public IEnumerable<int> GetEntities()
