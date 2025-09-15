@@ -1,4 +1,4 @@
-using HeartThrobFramework.Components;
+using HeartThrobFramework.GameData;
 using Microsoft.Xna.Framework.Content;
 
 namespace HeartThrobFramework.Utils;

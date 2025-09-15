@@ -1,9 +1,9 @@
-using Microsoft.Xna.Framework;
+using MonoGame.Extended;
 
 namespace HeartThrobFramework.Components;
 
 public struct CollisionComponent : IComponent
 {
-    public Rectangle CollisionRectangle;
+    public RectangleF CollisionRectangle;
     public bool IsColliding;
 }

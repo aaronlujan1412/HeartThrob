@@ -5,5 +5,4 @@ namespace HeartThrobFramework.Components;
 [ComponentCapacity(4)]
 public struct PlayerControlledComponent : IComponent
 {
-    
 }

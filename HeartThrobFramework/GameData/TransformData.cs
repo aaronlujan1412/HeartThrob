@@ -1,8 +1,8 @@
 using Microsoft.Xna.Framework;
 
-namespace HeartThrobFramework.Components;
+namespace HeartThrobFramework.GameData;
 
-public struct TransformData
+public record struct TransformData
 {
     public Vector2 Position { get; set; }
     public float Rotation { get; set; }

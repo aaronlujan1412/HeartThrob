@@ -14,7 +14,8 @@ class EntityTemplateProcessor : ContentProcessor<string, EntityTemplate>
         Converters =
         {
             new ColorJsonConverter(),
-            new Vector2JsonConverter()
+            new Vector2JsonConverter(),
+            new RectangleFJsonConverter()
         }
     };
 

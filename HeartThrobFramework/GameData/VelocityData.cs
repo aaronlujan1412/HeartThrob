@@ -1,8 +1,8 @@
 using Microsoft.Xna.Framework;
 
-namespace HeartThrobFramework.Components;
+namespace HeartThrobFramework.GameData;
 
-public struct VelocityData
+public record struct VelocityData
 {
     public Vector2 Value { get; set; }
 }
