@@ -4,6 +4,9 @@ using HeartThrobFramework.Systems;
 using Microsoft.Xna.Framework.Graphics;
 using HeartThrobFramework.GameData.StateEnums;
 using HeartThrobFramework.Core.ECS;
+using Microsoft.Xna.Framework.Content;
+using HeartThrobFramework.GameData.Template;
+using HeartThrobFramework.Utils;
 
 namespace HeartThrobFramework.Core;
 
@@ -12,8 +15,11 @@ public class World
     ComponentManager _cm;
     EntityManager _em;
     SystemManager _sm;
+    TemplateManager _tm;
 
     public event Action<GameStates> OnGameStateChanged;
+    public event Action OnEscPressed;
+
 
     private readonly int _gameStateEntity;
 
@@ -24,6 +30,9 @@ public class World
         _em = new EntityManager();
         _cm = new ComponentManager();
         _sm = new SystemManager();
+        _tm = new TemplateManager();
+
+        _sm.GetSystem<InputSystem>().OnMenuButtonPressed += HandleMenuButtonPressed;
 
         _gameStateEntity = _em.CreateNewEntity();
         _cm.AddComponent(_gameStateEntity, new GameStateComponent(GameStates.TimeAdvancing));
@@ -34,6 +43,14 @@ public class World
     {
         int newEntity = _em.CreateNewEntity();
         return newEntity;
+    }
+
+    public void HandleMenuButtonPressed(string menuButton)
+    {
+        if (menuButton == "esc")
+        {
+            OnEscPressed?.Invoke();
+        }
     }
     
     public void DestroyEntity(int entity)
@@ -126,12 +143,12 @@ public class World
     
     public void Update(float deltaTime)
     {
-        _sm.Update(this, deltaTime);
+        _sm.Update(deltaTime);
     }
 
     public void Render(SpriteBatch spriteBatch)
     {
-        _sm.Render(this, spriteBatch);
+        _sm.Render(spriteBatch);
     }
 
     public IEnumerable<int> Query<T>() where T : IComponent
@@ -220,5 +237,15 @@ public class World
         {
             return Enumerable.Empty<Type>();
         }
+    }
+
+    public void LoadTemplates(ContentManager content)
+    {
+        _tm.LoadAllTemplates(content);
+    }
+
+    public EntityTemplate GetTemplate(string templateName)
+    {
+        return _tm.GetTemplate(templateName);
     }
 }

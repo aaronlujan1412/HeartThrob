@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using HeartThrobFramework.Core;
 using HeartThrobFramework.Components;
 using HeartThrobFramework.Systems;
@@ -39,7 +38,6 @@ public class Game1 : Game
     //             var sprite = _world.GetComponent<Sprite>(entityId);
     //             var keyboardState = Keyboard.GetState();
     //
-    //             if (keyboardState.IsKeyDown(Keys.E) && _lastKeyboardState.IsKeyUp(Keys.E) && !sprite.IsEquipped)
     //             {
     //                 sprite.Texture = Content.Load<Texture2D>("slimeManEquipped");
     //                 sprite.IsEquipped = true;
@@ -58,6 +56,7 @@ public class Game1 : Game
     
     protected override void Initialize()
     {
+
         _world.RegisterComponent<TransformComponent>();
         _world.RegisterComponent<VelocityComponent>();
         _world.RegisterComponent<SpriteComponent>();
@@ -88,24 +87,13 @@ public class Game1 : Game
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-
-        var slimeTemplate = Content.Load<EntityTemplate>("Entities/slime");
-        int slimeEntity = _entityFactory.Create(slimeTemplate);
-
+        _world.LoadTemplates(Content);
     }
 
 
 
     // public void CreateMainPlayer()
     // {
-    //     foreach (var file in Directory.GetFiles(templatePath, "*.json"))
-    //     {
-    //         string jsonString = File.ReadAllText(file);
-    //         var template = JsonSerializer.Deserialize<EntityTemplate>(jsonString);
-    //         
-    //         string templateName = Path.GetFileNameWithoutExtension(file);
-    //         _templates.Add(templateName, template);
-    //     }
     //     
     //     var slimeMan = Content.Load<Texture2D>("slimeMan");
     //     int mainPlayer = _world.CreateEntity();
