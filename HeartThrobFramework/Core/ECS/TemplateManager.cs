@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Content;
 
 namespace HeartThrobFramework.Core.ECS
 {
-    internal class TemplateManager(ContentManager content)
+    internal class TemplateManager()
     {
         Dictionary<string, EntityTemplate> Templates = new Dictionary<string, EntityTemplate>();
 

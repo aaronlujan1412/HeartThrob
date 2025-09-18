@@ -15,7 +15,7 @@ public class Game1 : Game
     private readonly GraphicsDeviceManager _graphics;
     private readonly EntityFactory _entityFactory;
     private SpriteBatch _spriteBatch;
-    private int _pauseEntity = -1;
+    private int _worldEntity = -1;
 
     public Game1()
     {
@@ -26,7 +26,7 @@ public class Game1 : Game
         _world = new World();
         _entityFactory = new EntityFactory(_world, Content);
         
-        _world.OnGameStateChanged += HandleGameStateChange;
+        //_world.OnGameStateChanged += HandleGameStateChange;
     }
 
     // public void EquipPlayer(float deltaTime)
@@ -67,6 +67,9 @@ public class Game1 : Game
         _world.RegisterComponent<CollisionComponent>();
         _world.RegisterComponent<GameStateComponent>();
         _world.RegisterComponent<ClickableComponent>();
+        _world.RegisterComponent<GameStateComponent>();
+        _world.RegisterComponent<StateToggleComponent>();
+        _world.AddComponent<GameStateComponent>(_world.GameStateEntity, new GameStateComponent(GameStates.TimeAdvancing));
 
         var renderSystem = new RenderSystem(_spriteBatch);
         _world.RegisterSystem(renderSystem);
@@ -77,7 +80,7 @@ public class Game1 : Game
         var movementSystem = new MovementSystem();
         _world.RegisterSystem(movementSystem);
 
-        var gameStateSystem = new GameStateSystem();
+        var gameStateSystem = new GameStateSystem(_entityFactory);
         _world.RegisterSystem(gameStateSystem);
         
         base.Initialize();
@@ -126,23 +129,23 @@ public class Game1 : Game
     //     _world.UpdateComponent(entityId, sprite);
     // }
 
-    public void HandleGameStateChange(GameStates newState)
-    {
-        if (newState == GameStates.GameOver)
-        {
-            Exit();
-        }
+    //public void HandleGameStateChange(GameStates newState)
+    //{
+    //    if (newState == GameStates.GameOver)
+    //    {
+    //        Exit();
+    //    }
 
-        if (newState == GameStates.TimeStopped)
-        {
-            var pauseTemplate = Content.Load<EntityTemplate>("Entities/pause");
-            _pauseEntity = _entityFactory.Create(pauseTemplate);
-        } else if (_pauseEntity != -1)
-        {
-            _world.DestroyEntity(_pauseEntity);
-            _pauseEntity = -1;
-        }
-    }
+    //    if (newState == GameStates.TimeStopped)
+    //    {
+    //        var pauseTemplate = Content.Load<EntityTemplate>("Entities/pause");
+    //        _pauseEntity = _entityFactory.Create(pauseTemplate);
+    //    } else if (_pauseEntity != -1)
+    //    {
+    //        _world.DestroyEntity(_pauseEntity);
+    //        _pauseEntity = -1;
+    //    }
+    //}
 
     protected override void Update(GameTime gameTime)
     {
@@ -162,12 +165,6 @@ public class Game1 : Game
         GraphicsDevice.Clear(Color.CornflowerBlue);
         _spriteBatch.Begin();
         _world.GetSystem<RenderSystem>().Render(_spriteBatch);
-
-
-        if (_world.CurrentState == GameStates.TimeStopped && _pauseEntity != -1)
-        {
-            _world.GetSystem<RenderSystem>().RenderEntity(_spriteBatch, _pauseEntity);
-        }
         
 
         _world.Render(_spriteBatch);

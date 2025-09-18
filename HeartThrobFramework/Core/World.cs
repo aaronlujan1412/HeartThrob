@@ -21,7 +21,7 @@ public class World
     public event Action OnEscPressed;
 
 
-    private readonly int _gameStateEntity;
+    public int GameStateEntity;
 
     public GameStates CurrentState { get; private set; }
 
@@ -32,10 +32,7 @@ public class World
         _sm = new SystemManager();
         _tm = new TemplateManager();
 
-        _sm.GetSystem<InputSystem>().OnMenuButtonPressed += HandleMenuButtonPressed;
-
-        _gameStateEntity = _em.CreateNewEntity();
-        _cm.AddComponent(_gameStateEntity, new GameStateComponent(GameStates.TimeAdvancing));
+        GameStateEntity = _em.CreateNewEntity();
         CurrentState = GameStates.TimeAdvancing;
     }
 
@@ -137,9 +134,11 @@ public class World
 
         CurrentState = newState;
 
-        _cm.UpdateComponent(_gameStateEntity, new GameStateComponent(newState));
+        _cm.UpdateComponent(GameStateEntity, new GameStateComponent(newState));
         OnGameStateChanged?.Invoke(newState);
     }
+
+
     
     public void Update(float deltaTime)
     {
