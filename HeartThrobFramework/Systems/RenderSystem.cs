@@ -6,7 +6,7 @@ namespace HeartThrobFramework.Systems;
 
 public class RenderSystem(SpriteBatch spriteBatch) : ISystem
 {
-    public required World World { get; set; }
+    public World World { get; set; }
 
     private readonly SpriteBatch _spriteBatch = spriteBatch;
 
