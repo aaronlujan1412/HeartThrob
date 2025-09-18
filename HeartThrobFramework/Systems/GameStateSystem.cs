@@ -1,43 +1,38 @@
 using HeartThrobFramework.Components;
 using HeartThrobFramework.Core;
+using HeartThrobFramework.Factories;
 using HeartThrobFramework.GameData.StateEnums;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
 namespace HeartThrobFramework.Systems;
 
-public class GameStateSystem : ISystem
+public class GameStateSystem(EntityFactory ef) : ISystem
 {
     public World World { get; set; }
+    private int _stateEntity = -1;
 
-
-    public event Action<GameStates> OnGameStateChanged;
-    public void Update(World world, float deltaTime)
+    public void Update(float deltaTime)
     {
-        var worldEntity = world.Query<GameStateComponent>();
+        var commandEntity = World.Query<StateToggleComponent>();
 
-        foreach (var entity in worldEntity)
+
+        if (commandEntity.Any())
         {
+            var command = World.GetComponent<StateToggleComponent>(commandEntity.First());
+
+            switch (command.State)
             {
-                if (world.CurrentState == GameStates.TimeStopped)
-                {
-                    world.SetGameState(GameStates.TimeAdvancing);
-                    return;
-                }
-                world.SetGameState(GameStates.TimeStopped);
+                case GameStates.TimeStopped:
+                    break;
+
+                default:
+                    break;
             }
         }
     }
 
-    public void Render(World world, SpriteBatch spriteBatch)
+    public void Render(SpriteBatch spriteBatch)
     {
-        return;
-    }
-
-    public void ChangeGameState(World world, GameStates state, int worldEntity)
-    {
-        world.UpdateComponent<GameStateComponent>(worldEntity, new GameStateComponent(state));
         return;
     }
 }
