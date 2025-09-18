@@ -7,32 +7,33 @@ namespace HeartThrobFramework.Systems;
 
 public class EquipmentSystem : ISystem
 {
-    public void Update(World world, float deltaTime)
+    public World World { get; set; }
+    public void Update(float deltaTime)
     {
-        var playerEntities = world.Query<TransformComponent, PlayerControlledComponent>();
-        var itemEntities = world.Query<EquipmentComponent>();
+        var playerEntities = World.Query<TransformComponent, PlayerControlledComponent>();
+        var itemEntities = World.Query<EquipmentComponent>();
 
         foreach (int playerId in playerEntities)
         {
             foreach (int itemId in itemEntities)
             {
-                var playerPosition = world.GetComponent<TransformComponent>(playerId);
-                var itemPosition = world.GetComponent<TransformComponent>(itemId);
+                var playerPosition = World.GetComponent<TransformComponent>(playerId);
+                var itemPosition = World.GetComponent<TransformComponent>(itemId);
 
                 if (Vector2.Distance(playerPosition.Position, itemPosition.Position) < 0.1f)
                 {
-                    var inventory = world.GetComponent<InventoryComponent>(playerId);
+                    var inventory = World.GetComponent<InventoryComponent>(playerId);
                     
                     inventory.Items.Add(itemId);
 
-                    world.RemoveComponent<TransformComponent>(itemId);
-                    world.RemoveComponent<SpriteComponent>(itemId);
+                    World.RemoveComponent<TransformComponent>(itemId);
+                    World.RemoveComponent<SpriteComponent>(itemId);
                 }
             }
         }
     }
 
-    public void Render(World world, SpriteBatch spriteBatch)
+    public void Render(SpriteBatch spriteBatch)
     {
         
     }

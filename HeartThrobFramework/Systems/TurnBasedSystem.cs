@@ -5,13 +5,14 @@ namespace HeartThrobFramework.Systems;
 
 public class TurnBasedSystem : ISystem
 {
-    public void Update(World world, float deltaTime)
+    public World World { get; set; }
+    public void Update(float deltaTime)
     {
         return;
 //        var entities = world.Query<ActionOrder>();
     }
 
-    public void Render(World world, SpriteBatch spriteBatch)
+    public void Render(SpriteBatch spriteBatch)
     {
         return;
     }

@@ -31,21 +31,21 @@ public class RenderSystem(SpriteBatch spriteBatch) : ISystem
         }
     }
 
-    public void RenderEntity(SpriteBatch spriteBatch, int entity)
-    {
-        World.
+    //public void RenderEntity(SpriteBatch spriteBatch, int entity)
+    //{
+    //    World.
 
 
-        world.AddComponent<TransformComponent>(entity)
+    //    world.AddComponent<TransformComponent>(entity)
 
-        var transform = world.GetComponent<TransformComponent>(entity);
-        var sprite = world.GetComponent<SpriteComponent>(entity);
+    //    var transform = world.GetComponent<TransformComponent>(entity);
+    //    var sprite = world.GetComponent<SpriteComponent>(entity);
 
-        spriteBatch.Draw(
-            sprite.Texture,
-            transform.Position,
-            sprite.Color);
-    }
+    //    spriteBatch.Draw(
+    //        sprite.Texture,
+    //        transform.Position,
+    //        sprite.Color);
+    //}
 
     public void RenderAll(World world, SpriteBatch spriteBatch)
     {

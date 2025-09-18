@@ -1,30 +1,28 @@
 using HeartThrobFramework.Core;
 using HeartThrobFramework.Components;
-
-using System.Data;
-using System.Threading.Tasks.Dataflow;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace HeartThrobFramework.Systems;
 
 public class MovementSystem : ISystem
 {
-    public void Update(World world, float deltaTime)
+    public World World { get; set; }
+    public void Update(float deltaTime)
     {
-        var entities = world.Query<TransformComponent, VelocityComponent>();
+        var entities = World.Query<TransformComponent, VelocityComponent>();
 
         foreach (var entity in entities)
         {
-            var transform = world.GetComponent<TransformComponent>(entity);;
-            var velocity = world.GetComponent<VelocityComponent>(entity);
+            var transform = World.GetComponent<TransformComponent>(entity);;
+            var velocity = World.GetComponent<VelocityComponent>(entity);
 
             transform.Position += (velocity.Value * deltaTime);
             
-            world.UpdateComponent<TransformComponent>(entity, transform);;
+            World.UpdateComponent<TransformComponent>(entity, transform);;
         }
     }
 
-    public void Render(World world, SpriteBatch spriteBatch)
+    public void Render(SpriteBatch spriteBatch)
     {
         return;
     }
