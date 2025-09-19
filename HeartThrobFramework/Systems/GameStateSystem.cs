@@ -21,24 +21,29 @@ public class GameStateSystem(EntityFactory ef) : ISystem
         {
             var command = World.GetComponent<StateToggleComponent>(commandEntity.First());
 
-            switch (command.State)
+            switch (World.CurrentState)
             {
                 case GameStates.TimeStopped:
-                    if (World.CurrentState == GameStates.TimeAdvancing)
+                    if (command.State == GameStates.TimeAdvancing)
+                    {
+                        World.SetGameState(GameStates.TimeAdvancing);
+                        World.DestroyEntity(_stateEntity);
+                        World.DestroyEntity(commandEntity.First());
+                    } else if (command.State == GameStates.TimeStopped)
+                    {
+                        World.SetGameState(GameStates.TimeAdvancing);
+                        World.DestroyEntity(_stateEntity);
+                        World.DestroyEntity(commandEntity.First());
+                    }
+                        break;
+
+                case GameStates.TimeAdvancing:
+                    if (command.State == GameStates.TimeStopped)
                     {
                         EntityTemplate pauseTemplate = World.GetTemplate("pause");
                         World.SetGameState(GameStates.TimeStopped);
                         _stateEntity = ef.Create(pauseTemplate);
                         
-                        World.DestroyEntity(commandEntity.First());
-                    }
-                    break;
-
-                case GameStates.TimeAdvancing:
-                    if (World.CurrentState == GameStates.TimeStopped)
-                    {
-                        World.SetGameState(GameStates.TimeAdvancing);
-                        World.DestroyEntity(_stateEntity);
                         World.DestroyEntity(commandEntity.First());
                     }
                     break;
