@@ -1,12 +1,11 @@
 using HeartThrobFramework.Core;
 using HeartThrobFramework.Components;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace HeartThrobFramework.Systems;
 
 public class MovementSystem : ISystem
 {
-    public World World { get; set; }
+    public World World { get; set; } = null!;
     public void Update(float deltaTime)
     {
         var entities = World.Query<TransformComponent, VelocityComponent>();
@@ -20,10 +19,5 @@ public class MovementSystem : ISystem
             
             World.UpdateComponent<TransformComponent>(entity, transform);;
         }
-    }
-
-    public void Render(SpriteBatch spriteBatch)
-    {
-        return;
     }
 }

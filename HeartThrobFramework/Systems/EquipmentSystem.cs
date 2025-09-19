@@ -1,5 +1,4 @@
 using HeartThrobFramework.Components;
-using Microsoft.Xna.Framework.Graphics;
 using HeartThrobFramework.Core;
 using Microsoft.Xna.Framework;
 
@@ -7,7 +6,7 @@ namespace HeartThrobFramework.Systems;
 
 public class EquipmentSystem : ISystem
 {
-    public World World { get; set; }
+    public World World { get; set; } = null!;
     public void Update(float deltaTime)
     {
         var playerEntities = World.Query<TransformComponent, PlayerControlledComponent>();
@@ -31,10 +30,5 @@ public class EquipmentSystem : ISystem
                 }
             }
         }
-    }
-
-    public void Render(SpriteBatch spriteBatch)
-    {
-        
     }
 }

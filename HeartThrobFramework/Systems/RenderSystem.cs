@@ -6,7 +6,7 @@ namespace HeartThrobFramework.Systems;
 
 public class RenderSystem(SpriteBatch spriteBatch) : ISystem
 {
-    public World World { get; set; }
+    public World World { get; set; } = null!;
 
     private readonly SpriteBatch _spriteBatch = spriteBatch;
 
@@ -29,26 +29,5 @@ public class RenderSystem(SpriteBatch spriteBatch) : ISystem
                 transform.Position,
                 sprite.Color);
         }
-    }
-
-    //public void RenderEntity(SpriteBatch spriteBatch, int entity)
-    //{
-    //    World.
-
-
-    //    world.AddComponent<TransformComponent>(entity)
-
-    //    var transform = world.GetComponent<TransformComponent>(entity);
-    //    var sprite = world.GetComponent<SpriteComponent>(entity);
-
-    //    spriteBatch.Draw(
-    //        sprite.Texture,
-    //        transform.Position,
-    //        sprite.Color);
-    //}
-
-    public void RenderAll(World world, SpriteBatch spriteBatch)
-    {
-        var entities = world.Query<TransformComponent, SpriteComponent>();
     }
 }

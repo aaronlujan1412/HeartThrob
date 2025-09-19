@@ -13,7 +13,6 @@ public class InputSystem(InputManager inputManager) : ISystem
     private readonly InputManager _inputManager = inputManager;
     private const float moveSpeed = 100f;
 
-
     public World World { get; set; } = null!;
     public void Update(float deltaTime)
     {
@@ -39,7 +38,5 @@ public class InputSystem(InputManager inputManager) : ISystem
             World.AddComponent<StateToggleComponent>(commandEntity, new StateToggleComponent(GameStates.TimeStopped));
         }
     }
-
-    public void Render(SpriteBatch spriteBatch) { }
 }
 

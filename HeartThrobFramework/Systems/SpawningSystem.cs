@@ -7,7 +7,5 @@ public class SpawningSystem
     public void spawnThingy(World world)
     {
         var slime = world.CreateEntity();
-        
-        
     }
 }

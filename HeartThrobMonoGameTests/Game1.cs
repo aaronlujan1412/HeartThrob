@@ -46,9 +46,6 @@ public class Game1 : Game
 
         _world.AddComponent<GameStateComponent>(_world.GameStateEntity, new GameStateComponent(GameStates.TimeAdvancing));
 
-        var renderSystem = new RenderSystem(_spriteBatch);
-        _world.RegisterSystem(renderSystem);
-
         var inputSystem = new InputSystem(_inputManager);
         _world.RegisterSystem(inputSystem);
 
@@ -63,11 +60,13 @@ public class Game1 : Game
 
     protected override void LoadContent()
     {
-        _spriteBatch = new SpriteBatch(GraphicsDevice);
-        _spawner = new EntitySpawner(_entityFactory);
-
         _world.LoadTemplates(Content);
 
+        _spriteBatch = new SpriteBatch(GraphicsDevice);
+        var renderSystem = new RenderSystem(_spriteBatch);
+        _world.RegisterSystem(renderSystem);
+
+        _spawner = new EntitySpawner(_entityFactory);
         _spawner.SpawnMainCharacter(_world);
     }
 
@@ -85,8 +84,6 @@ public class Game1 : Game
         _spriteBatch.Begin();
         _world.GetSystem<RenderSystem>().Render(_spriteBatch);
         
-
-        _world.Render(_spriteBatch);
         _spriteBatch.End();
 
         base.Draw(gameTime);

@@ -3,13 +3,12 @@ using HeartThrobFramework.Core;
 using HeartThrobFramework.Factories;
 using HeartThrobFramework.GameData.StateEnums;
 using HeartThrobFramework.GameData.Template;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace HeartThrobFramework.Systems;
 
 public class GameStateSystem(EntityFactory ef) : ISystem
 {
-    public World World { get; set; }
+    public World World { get; set; } = null!;
     private int _stateEntity = -1;
 
     public void Update(float deltaTime)
@@ -52,10 +51,5 @@ public class GameStateSystem(EntityFactory ef) : ISystem
                     break;
             }
         }
-    }
-
-    public void Render(SpriteBatch spriteBatch)
-    {
-        return;
     }
 }
