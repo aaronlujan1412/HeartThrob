@@ -1,5 +1,4 @@
 using HeartThrobFramework.Systems;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace HeartThrobFramework.Core.ECS;
 
@@ -27,14 +26,6 @@ public class SystemManager
         for (int i = 0; i < _systemCount; i++)
         {
             _systems[i].Update(deltaTime);
-        }
-    }
-
-    public void Render(SpriteBatch spriteBatch)
-    {
-        for (int i = 0; i < _systemCount; i++)
-        {
-            _systems[i].Render(spriteBatch);
         }
     }
 }
