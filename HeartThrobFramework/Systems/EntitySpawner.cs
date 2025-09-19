@@ -13,5 +13,12 @@ namespace HeartThrobFramework.Systems
 
             return mainCharacter;
         }
+
+        public int SpawnPauseMenu()
+        {
+            int pauseMenu = _entityFactory.Create(EntityTemplateNames.Pause);
+
+            return pauseMenu;
+        }
     }
 }

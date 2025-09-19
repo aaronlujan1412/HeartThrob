@@ -2,7 +2,6 @@ using HeartThrobFramework.Components;
 using HeartThrobFramework.Core.World;
 using HeartThrobFramework.Factories;
 using HeartThrobFramework.GameData.StateEnums;
-using HeartThrobFramework.GameData.Template;
 
 namespace HeartThrobFramework.Systems;
 
@@ -39,10 +38,7 @@ public class GameStateSystem(EntityFactory ef) : ISystem
                 case GameStates.TimeAdvancing:
                     if (command.State == GameStates.TimeStopped)
                     {
-                        EntityTemplate pauseTemplate = World.GetTemplate("pause");
                         World.SetGameState(GameStates.TimeStopped);
-                        _stateEntity = ef.Create(pauseTemplate);
-                        
                         World.DestroyEntity(commandEntity.First());
                     }
                     break;
