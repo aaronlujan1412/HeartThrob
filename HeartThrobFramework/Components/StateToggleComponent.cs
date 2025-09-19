@@ -4,7 +4,8 @@ namespace HeartThrobFramework.Components
 {
     public struct StateToggleComponent : IComponent
     {
-        public GameStates State { get; set; }
+        public GameStates State { get; private set; }
+
 
         public StateToggleComponent(GameStates state)
         {
