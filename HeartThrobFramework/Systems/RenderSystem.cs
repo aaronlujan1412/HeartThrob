@@ -1,6 +1,6 @@
-using HeartThrobFramework.Core;
 using HeartThrobFramework.Components;
 using Microsoft.Xna.Framework.Graphics;
+using HeartThrobFramework.Core.World;
 
 namespace HeartThrobFramework.Systems;
 

@@ -1,5 +1,5 @@
-using HeartThrobFramework.Core;
 using HeartThrobFramework.Components;
+using HeartThrobFramework.Core.World;
 
 namespace HeartThrobFramework.Systems;
 

@@ -1,5 +1,5 @@
 using HeartThrobFramework.Components;
-using HeartThrobFramework.Core;
+using HeartThrobFramework.Core.World;
 using HeartThrobFramework.Factories;
 using HeartThrobFramework.GameData.StateEnums;
 using HeartThrobFramework.GameData.Template;

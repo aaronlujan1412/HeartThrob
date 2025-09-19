@@ -1,4 +1,4 @@
-using HeartThrobFramework.Core;
+using HeartThrobFramework.Core.World;
 
 namespace HeartThrobFramework.Systems;
 
