@@ -7,7 +7,6 @@ namespace HeartThrobFramework.Core.ECS;
 public class SparseSet<T> : IComponentPool where T : IComponent
 {
     private const int SentinelValue = Config.SentinelValueForEntity;
-    private int _count = 0;
     
     private readonly int _capacity;
     private readonly int _maxEntities;
@@ -15,6 +14,8 @@ public class SparseSet<T> : IComponentPool where T : IComponent
     private readonly int[] _sparse;
     private readonly int[] _entities;
     private readonly T[] _components;
+
+    public int Count { get; private set; } = 0;
 
     public SparseSet(int componentCapacity, int maxEntities)
     {
@@ -34,7 +35,7 @@ public class SparseSet<T> : IComponentPool where T : IComponent
             throw new ArgumentOutOfRangeException(nameof(entityId));
         }
         
-        if (_count >= _capacity)
+        if (Count >= _capacity)
         {
             throw new InvalidOperationException("Cannot add more entities.");
         }
@@ -45,10 +46,10 @@ public class SparseSet<T> : IComponentPool where T : IComponent
             return;
         }
 
-        _sparse[entityId] = _count;
-        _components[_count] = component;
-        _entities[_count] = entityId;
-        _count++;
+        _sparse[entityId] = Count;
+        _components[Count] = component;
+        _entities[Count] = entityId;
+        Count++;
     }
 
     public void Remove(int entityToRemove)
@@ -63,21 +64,21 @@ public class SparseSet<T> : IComponentPool where T : IComponent
             throw new InvalidOperationException($"Entity {entityToRemove} does not have a {typeof(T)} component.");
         }
         
-        int lastEntityInDense = _entities[_count - 1];
+        int lastEntityInDense = _entities[Count - 1];
         if (entityToRemove != lastEntityInDense)
         {
             int entityToBeRemovedDenseIndex = _sparse[entityToRemove];
         
             _entities[entityToBeRemovedDenseIndex] = lastEntityInDense;
-            _components[entityToBeRemovedDenseIndex] = _components[_count - 1];
+            _components[entityToBeRemovedDenseIndex] = _components[Count - 1];
             _sparse[lastEntityInDense] = entityToBeRemovedDenseIndex;
             
         }
-        _entities[_count - 1] = SentinelValue;
-        _components[_count - 1] = default;
+        _entities[Count - 1] = SentinelValue;
+        _components[Count - 1] = default;
         _sparse[entityToRemove] = SentinelValue;
         
-        _count--;
+        Count--;
     }
     
     public void Set(int entityId, T component)
@@ -110,11 +111,11 @@ public class SparseSet<T> : IComponentPool where T : IComponent
         
         int denseIndex = _sparse[entityId];
         
-        return denseIndex != SentinelValue && denseIndex < _count && _entities[denseIndex] == entityId;
+        return denseIndex != SentinelValue && denseIndex < Count && _entities[denseIndex] == entityId;
     }
 
     public IEnumerable<int> GetEntities()
     {
-        return new ArraySegment<int>(_entities, 0, _count);
+        return new ArraySegment<int>(_entities, 0, Count);
     }
 }

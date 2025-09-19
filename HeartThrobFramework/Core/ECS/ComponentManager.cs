@@ -43,7 +43,17 @@ public class ComponentManager
         
         return pool.Has(entityId);
     }
-    
+
+    public IComponentPool GetComponentPool(Type type)
+    {
+        if (!_componentPools.TryGetValue(type, out var pool))
+        {
+            throw new InvalidOperationException($"Component type {type.Name} is not registered, or does not exist.");
+        }
+
+        return pool;
+    }
+
     public SparseSet<T> GetComponentPool<T>() where T : IComponent
     {
         if (!_componentPools.TryGetValue(typeof(T), out var pool))

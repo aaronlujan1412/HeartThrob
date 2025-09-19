@@ -1,27 +1,23 @@
 using HeartThrobFramework.Components;
 using System.Reflection;
 using HeartThrobFramework.Systems;
-using Microsoft.Xna.Framework.Graphics;
 using HeartThrobFramework.GameData.StateEnums;
 using HeartThrobFramework.Core.ECS;
 using Microsoft.Xna.Framework.Content;
 using HeartThrobFramework.GameData.Template;
-using HeartThrobFramework.Utils;
 
 namespace HeartThrobFramework.Core;
 
 public class World
 {
-    ComponentManager _cm;
-    EntityManager _em;
-    SystemManager _sm;
-    TemplateManager _tm;
+    private readonly ComponentManager _cm;
+    private readonly EntityManager _em;
+    private readonly SystemManager _sm;
+    private readonly TemplateManager _tm;
 
     public event Action<GameStates> OnGameStateChanged;
-    public event Action OnEscPressed;
 
-
-    public int GameStateEntity;
+    public readonly int GameStateEntity;
 
     public GameStates CurrentState { get; private set; }
 
@@ -33,6 +29,7 @@ public class World
         _tm = new TemplateManager();
 
         GameStateEntity = _em.CreateNewEntity();
+        _cm.AddComponent(GameStateEntity, new GameStateComponent(GameStates.TimeAdvancing));
         CurrentState = GameStates.TimeAdvancing;
     }
 
@@ -41,14 +38,6 @@ public class World
         int newEntity = _em.CreateNewEntity();
         return newEntity;
     }
-
-    public void HandleMenuButtonPressed(string menuButton)
-    {
-        if (menuButton == "esc")
-        {
-            OnEscPressed?.Invoke();
-        }
-    }
     
     public void DestroyEntity(int entity)
     {
@@ -56,9 +45,9 @@ public class World
         _em.RemoveEntity(entity);
     }
     
-    public int[] GetAliveEntities()
+    public IEnumerable<int> GetAliveEntities()
     {
-        return _em.GetAliveEntities().ToArray();
+        return _em.GetAliveEntities();
     }
 
     public void RegisterComponent<T>() where T : IComponent
@@ -137,90 +126,10 @@ public class World
         _cm.UpdateComponent(GameStateEntity, new GameStateComponent(newState));
         OnGameStateChanged?.Invoke(newState);
     }
-
-
     
     public void Update(float deltaTime)
     {
         _sm.Update(deltaTime);
-    }
-
-    public void Render(SpriteBatch spriteBatch)
-    {
-        _sm.Render(spriteBatch);
-    }
-
-    public IEnumerable<int> Query<T>() where T : IComponent
-    {
-        return _cm.GetEntities<T>();
-    }
-
-    public IEnumerable<int> Query<T1, T2>()
-        where T1 : IComponent
-        where T2 : IComponent
-    {
-        var entityArrays = new[]
-        {
-            _cm.GetComponentPool<T1>().GetEntities(),
-            _cm.GetComponentPool<T2>().GetEntities()
-        }.OrderBy(e => e.Count()).ToArray();
-
-        foreach (int entity in entityArrays[0])
-        {
-            if (entityArrays[1].Contains(entity))
-            {
-                yield return entity;
-            }
-
-            if (HasComponent<T1>(entity) && HasComponent<T2>(entity))
-            {
-                yield return entity;
-            }
-        }
-    }
-
-    public IEnumerable<int> Query<T1, T2, T3>()
-        where T1 : IComponent
-        where T2 : IComponent
-        where T3 : IComponent
-    {
-        var entityArrays = new[]
-        {
-            _cm.GetComponentPool<T1>().GetEntities(),
-            _cm.GetComponentPool<T2>().GetEntities(),
-            _cm.GetComponentPool<T3>().GetEntities()
-        }.OrderBy(e => e.Count()).ToArray();
-
-        foreach (int entity in entityArrays[0])
-        {
-            if (entityArrays[1].Contains(entity) && entityArrays[2].Contains(entity))
-            {
-                yield return entity;
-            }
-        }
-    }
-    
-    public IEnumerable<int> Query<T1, T2, T3, T4>()
-        where T1 : IComponent
-        where T2 : IComponent
-        where T3 : IComponent
-        where T4 : IComponent
-    {
-        var entityArrays = new[]
-        {
-            _cm.GetComponentPool<T1>().GetEntities(),
-            _cm.GetComponentPool<T2>().GetEntities(),
-            _cm.GetComponentPool < T3 >().GetEntities(),
-            _cm.GetComponentPool < T4 >().GetEntities()
-        }.OrderBy(e => e.Count()).ToArray();
-
-        foreach (int entity in entityArrays[0])
-        {
-            if (entityArrays[1].Contains(entity) && entityArrays[2].Contains(entity)  && entityArrays[3].Contains(entity))
-            {
-                yield return entity;
-            }
-        }
     }
 
     public static IEnumerable<Type> GetAllComponentTypes(Assembly assembly)
@@ -246,5 +155,62 @@ public class World
     public EntityTemplate GetTemplate(string templateName)
     {
         return _tm.GetTemplate(templateName);
+    }
+
+     private IEnumerable<int> QueryMultiple(params Type[] componentTypes)
+    {
+        if (componentTypes.Length == 0) yield break;
+
+        var pools = componentTypes.Select(t => _cm.GetComponentPool(t)).ToArray();
+
+        Array.Sort(pools, (a, b) => a.Count.CompareTo(b.Count));
+
+        var smallestPool = pools[0];
+
+        foreach (var entity in smallestPool.GetEntities())
+        {
+            bool hasAll = true;
+            for (int i = 1; i < pools.Length; i++)
+            {
+                if (!pools[i].Has(entity))
+                {
+                    hasAll = false;
+                    break;
+                }
+            }
+
+            if (hasAll)
+                yield return entity;
+        }
+    }
+
+    public IEnumerable<int> Query<T1>() where T1 : IComponent
+    {
+        foreach (var e in _cm.GetComponentPool<T1>().GetEntities())
+            yield return e;
+    }
+
+    public IEnumerable<int> Query<T1, T2>()
+        where T1 : IComponent
+        where T2 : IComponent
+    {
+        return QueryMultiple(typeof(T1), typeof(T2));
+    }
+
+    public IEnumerable<int> Query<T1, T2, T3>()
+        where T1 : IComponent
+        where T2 : IComponent
+        where T3 : IComponent
+    {
+        return QueryMultiple(typeof(T1), typeof(T2), typeof(T3));
+    }
+
+    public IEnumerable<int> Query<T1, T2, T3, T4>()
+        where T1 : IComponent
+        where T2 : IComponent
+        where T3 : IComponent
+        where T4 : IComponent
+    {
+        return QueryMultiple(typeof(T1), typeof(T2), typeof(T3), typeof(T4));
     }
 }
