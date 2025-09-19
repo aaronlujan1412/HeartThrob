@@ -1,24 +1,22 @@
 using HeartThrobFramework.Components;
-using HeartThrobFramework.Core;
+using HeartThrobFramework.Core.ECS;
+using HeartThrobFramework.Core.World;
 using HeartThrobFramework.GameData.Template;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace HeartThrobFramework.Factories;
 
-public class EntityFactory
+public class EntityFactory(World world, ContentManager content, TemplateManager templateManager)
 {
-    private readonly World _world;
-    private readonly ContentManager _contentManager;
+    private readonly World _world = world;
+    private readonly ContentManager _contentManager = content;
+    private readonly TemplateManager _templateManager = templateManager;
 
-    public EntityFactory(World world, ContentManager content)
+    public int Create(string templateName)
     {
-        _world = world;
-        _contentManager = content;
-    }
+        EntityTemplate template = _templateManager.GetTemplate(templateName);
 
-    public int Create(EntityTemplate template)
-    {
         int entityId = _world.CreateEntity();
 
         if (template.Transform.HasValue)

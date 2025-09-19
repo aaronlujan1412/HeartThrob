@@ -4,9 +4,9 @@ using Microsoft.Xna.Framework.Content;
 
 namespace HeartThrobFramework.Core.ECS
 {
-    internal class TemplateManager()
+    public class TemplateManager()
     {
-        Dictionary<string, EntityTemplate> Templates = new Dictionary<string, EntityTemplate>();
+        private readonly Dictionary<string, EntityTemplate> _templates = [];
 
         public void LoadAllTemplates(ContentManager content)
         {
@@ -16,14 +16,17 @@ namespace HeartThrobFramework.Core.ECS
             {
                 EntityTemplate template = content.Load<EntityTemplate>($"Entities/{templateName}");
 
-                Templates.Add(templateName, template);
+                _templates.Add(templateName, template);
             }
 
         }
 
         public EntityTemplate GetTemplate(string templateName)
         {
-            Templates.TryGetValue(templateName, out var template);
+            if (!_templates.TryGetValue(templateName, out var template))
+            {
+                throw new InvalidOperationException($"Template with name {templateName} does not exist in current context.");
+            }
 
             return template;
         }
