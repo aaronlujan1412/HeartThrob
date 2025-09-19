@@ -6,6 +6,7 @@ using HeartThrobFramework.Systems;
 using HeartThrobFramework.GameData.Template;
 using HeartThrobFramework.GameData.StateEnums;
 using HeartThrobFramework.Factories;
+using HeartThrobFramework.Managers;
 
 namespace HeartThrobMonoGameTests;
 
@@ -13,8 +14,10 @@ public class Game1 : Game
 {
     private readonly World _world;
     private readonly GraphicsDeviceManager _graphics;
+    private readonly InputManager _inputManager;
     private readonly EntityFactory _entityFactory;
     private SpriteBatch _spriteBatch;
+    private EntitySpawner _spawner;
     private int _worldEntity = -1;
 
     public Game1()
@@ -24,6 +27,7 @@ public class Game1 : Game
         IsMouseVisible = true;
         
         _world = new World();
+        _inputManager = new InputManager();
         _entityFactory = new EntityFactory(_world, Content);
         
         //_world.OnGameStateChanged += HandleGameStateChange;
@@ -74,7 +78,7 @@ public class Game1 : Game
         var renderSystem = new RenderSystem(_spriteBatch);
         _world.RegisterSystem(renderSystem);
 
-        var inputSystem = new InputSystem();
+        var inputSystem = new InputSystem(_inputManager);
         _world.RegisterSystem(inputSystem);
 
         var movementSystem = new MovementSystem();
@@ -89,8 +93,11 @@ public class Game1 : Game
     protected override void LoadContent()
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
+        _spawner = new EntitySpawner(_entityFactory);
 
         _world.LoadTemplates(Content);
+
+        _spawner.SpawnMainCharacter(_world);
     }
 
 
@@ -149,13 +156,8 @@ public class Game1 : Game
 
     protected override void Update(GameTime gameTime)
     {
-        if (_world.CurrentState == GameStates.TimeAdvancing)
-        {
-            _world.Update((float)gameTime.ElapsedGameTime.TotalSeconds);
-        }
-        else
-        {
-        }
+        _inputManager.Update();
+        _world.Update((float)gameTime.ElapsedGameTime.TotalSeconds);
 
         base.Update(gameTime);
     }

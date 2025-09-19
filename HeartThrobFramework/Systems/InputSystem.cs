@@ -4,19 +4,19 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Numerics;
 using HeartThrobFramework.GameData.StateEnums;
+using HeartThrobFramework.Managers;
 
 namespace HeartThrobFramework.Systems;
 
-public class InputSystem : ISystem
+public class InputSystem(InputManager inputManager) : ISystem
 {
-    public World World { get; set; }
-    private KeyboardState _lastKeyboardState;
-
+    private readonly InputManager _inputManager = inputManager;
     private const float moveSpeed = 100f;
+
+
+    public World World { get; set; } = null!;
     public void Update(float deltaTime)
     {
-        var keyboardState = Keyboard.GetState();
-
         var entities = World.Query<PlayerControlledComponent, VelocityComponent>();
 
         foreach (var entity in entities)
@@ -25,50 +25,19 @@ public class InputSystem : ISystem
 
             velocity.Value = Vector2.Zero;
 
-            if (keyboardState.IsKeyDown(Keys.W)) velocity.Value.Y -= moveSpeed;
-            if (keyboardState.IsKeyDown(Keys.A)) velocity.Value.X -= moveSpeed;
-            if (keyboardState.IsKeyDown(Keys.S)) velocity.Value.Y += moveSpeed;
-            if (keyboardState.IsKeyDown(Keys.D)) velocity.Value.X += moveSpeed;
-
-            //if (keyboardState.IsKeyDown(Keys.A))
-            //{
-            //    velocity.Value.X = -100f;
-            //}
-
-            //if (keyboardState.IsKeyDown(Keys.D))
-            //{
-            //    velocity.Value.X = 100f;
-            //}
-
-            //if (keyboardState.IsKeyDown(Keys.W))
-            //{
-            //    velocity.Value.Y = -100f;
-            //}
-
-            //if (keyboardState.IsKeyDown(Keys.S))
-            //{
-            //    velocity.Value.Y = 100f;
-            //}
-
-
-
-
-            //if (keyboardState.IsKeyDown(Keys.Escape) && 
-            //    _lastKeyboardState.IsKeyUp(Keys.Escape))
-            //{
-            //    OnMenuButtonPressed?.Invoke("esc");
-            //}
+            if (_inputManager.CurrentKeyboardState.IsKeyDown(Keys.W)) velocity.Value.Y -= moveSpeed;
+            if (_inputManager.CurrentKeyboardState.IsKeyDown(Keys.A)) velocity.Value.X -= moveSpeed;
+            if (_inputManager.CurrentKeyboardState.IsKeyDown(Keys.S)) velocity.Value.Y += moveSpeed;
+            if (_inputManager.CurrentKeyboardState.IsKeyDown(Keys.D)) velocity.Value.X += moveSpeed;
 
             World.UpdateComponent(entity, velocity);
         }
 
-        if (keyboardState.IsKeyDown(Keys.Escape) && _lastKeyboardState.IsKeyUp(Keys.Escape))
+        if (_inputManager.CurrentKeyboardState.IsKeyDown(Keys.Escape) && _inputManager.PreviousKeyboardState.IsKeyUp(Keys.Escape))
         {
             int commandEntity = World.CreateEntity();
             World.AddComponent<StateToggleComponent>(commandEntity, new StateToggleComponent(GameStates.TimeStopped));
         }
-
-        _lastKeyboardState = keyboardState;
     }
 
     public void Render(SpriteBatch spriteBatch) { }
