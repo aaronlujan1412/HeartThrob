@@ -8,7 +8,6 @@ namespace HeartThrobFramework.Systems;
 public class GameStateSystem(EntityFactory ef) : ISystem
 {
     public World World { get; set; } = null!;
-    private int _stateEntity = -1;
 
     public void Update(float deltaTime)
     {
@@ -25,12 +24,10 @@ public class GameStateSystem(EntityFactory ef) : ISystem
                     if (command.State == GameStates.TimeAdvancing)
                     {
                         World.SetGameState(GameStates.TimeAdvancing);
-                        World.DestroyEntity(_stateEntity);
                         World.DestroyEntity(commandEntity.First());
                     } else if (command.State == GameStates.TimeStopped)
                     {
                         World.SetGameState(GameStates.TimeAdvancing);
-                        World.DestroyEntity(_stateEntity);
                         World.DestroyEntity(commandEntity.First());
                     }
                         break;

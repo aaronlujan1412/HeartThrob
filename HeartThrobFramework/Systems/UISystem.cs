@@ -25,14 +25,15 @@ namespace HeartThrobFramework.Systems
 
         private void HandleGameStateChange(GameStates newState)
         {
-            if (newState == GameStates.TimeStopped)
+            switch (newState)
             {
-                _entitySpawner.SpawnPauseMenu();
-            }
-            else if (_pauseEntity != -1)
-            {
-                World.DestroyEntity(_pauseEntity);
-                _pauseEntity = -1;
+                case GameStates.TimeStopped:
+                    _pauseEntity = _entitySpawner.SpawnPauseMenu();
+                    break;
+                case GameStates.TimeAdvancing:
+                    _world.DestroyEntity(_pauseEntity);
+                    _pauseEntity = -1;
+                    break;
             }
         }
 

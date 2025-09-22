@@ -7,7 +7,6 @@ using HeartThrobFramework.Factories;
 using HeartThrobFramework.Managers;
 using HeartThrobFramework.Core.World;
 using HeartThrobFramework.Core.ECS;
-using HeartThrobFramework.Utils;
 
 namespace HeartThrobMonoGameTests;
 
@@ -47,6 +46,7 @@ public class Game1 : Game
         _world.RegisterComponent<StateToggleComponent>();
 
         _world.AddComponent<GameStateComponent>(_world.GameStateEntity, new GameStateComponent(GameStates.TimeAdvancing));
+        _world.SetGameState(GameStates.TimeAdvancing);
         
         base.Initialize();
     }
@@ -60,6 +60,9 @@ public class Game1 : Game
 
         _entityFactory = new EntityFactory(_world, Content, _templateManager);
 
+        _spawner = new EntitySpawner(_entityFactory);
+        _spawner.SpawnMainCharacter();
+
         var renderSystem = new RenderSystem(_spriteBatch);
         _world.RegisterSystem(renderSystem);
 
@@ -72,8 +75,8 @@ public class Game1 : Game
         var gameStateSystem = new GameStateSystem(_entityFactory);
         _world.RegisterSystem(gameStateSystem);
 
-        _spawner = new EntitySpawner(_entityFactory);
-        _spawner.SpawnMainCharacter();
+        var uiSystem = new UISystem(_spawner);
+        _world.RegisterSystem(uiSystem);
     }
 
     protected override void Update(GameTime gameTime)

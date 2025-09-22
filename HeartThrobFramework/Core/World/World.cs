@@ -23,8 +23,6 @@ public partial class World
         _sm = new SystemManager();
 
         GameStateEntity = _em.CreateNewEntity();
-        _cm.AddComponent(GameStateEntity, new GameStateComponent(GameStates.TimeAdvancing));
-        CurrentState = GameStates.TimeAdvancing;
     }
 
     public void SetGameState(GameStates newState)
@@ -42,7 +40,4 @@ public partial class World
     {
         _sm.Update(deltaTime);
     }
-
-
-
 }
