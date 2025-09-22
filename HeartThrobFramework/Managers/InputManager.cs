@@ -6,7 +6,7 @@ namespace HeartThrobFramework.Managers
     {
         public KeyboardState CurrentKeyboardState { get; private set; }
         public KeyboardState PreviousKeyboardState { get; private set; }
-        public MouseState MouseState { get; private set; }
+        public MouseState CurrentMouseState { get; private set; }
         public MouseState PreviousMouseState { get; private set; }
 
         public void Update()
@@ -14,8 +14,17 @@ namespace HeartThrobFramework.Managers
             PreviousKeyboardState = CurrentKeyboardState;
             CurrentKeyboardState = Keyboard.GetState();
 
-            PreviousMouseState = MouseState;
-            MouseState = Mouse.GetState();
+            PreviousMouseState = CurrentMouseState;
+            CurrentMouseState = Mouse.GetState();
+            PreviousMouseState = new MouseState(
+                CurrentMouseState.X,
+                CurrentMouseState.Y,
+                CurrentMouseState.ScrollWheelValue,
+                CurrentMouseState.LeftButton,
+                CurrentMouseState.MiddleButton,
+                CurrentMouseState.RightButton,
+                CurrentMouseState.XButton1,
+                CurrentMouseState.XButton2);
         }
     }
 }

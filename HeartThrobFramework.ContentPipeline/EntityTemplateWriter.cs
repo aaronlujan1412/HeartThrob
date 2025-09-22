@@ -11,7 +11,9 @@ public class EntityTemplateWriter : ContentTypeWriter<EntityTemplate>
     protected override void Write(ContentWriter output, EntityTemplate value)
     {
         output.Write(value.Name ?? string.Empty);
-        
+
+
+        output.Write(value.Inherits ?? string.Empty);
 
         output.Write(value.Transform.HasValue);
         if (value.Transform.HasValue)
@@ -39,6 +41,8 @@ public class EntityTemplateWriter : ContentTypeWriter<EntityTemplate>
         }
 
         output.Write(value.PlayerControlled);
+
+        output.Write(value.Clickable);
     }
     public override string GetRuntimeReader(TargetPlatform targetPlatform)
     {

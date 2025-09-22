@@ -63,6 +63,11 @@ public class EntityFactory(World world, ContentManager content, TemplateManager 
             _world.AddComponent(entityId, new PlayerControlledComponent());
         }
 
+        if (template.Clickable)
+        {
+            _world.AddComponent(entityId, new ClickableComponent());
+        }
+
         return entityId;
     }
 }

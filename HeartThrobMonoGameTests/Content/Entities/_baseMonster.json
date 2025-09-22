@@ -1,0 +1,26 @@
+﻿{
+  "Name": "Monster",
+  "Transform": {
+    "Position": "0 0",
+    "Rotation": 0.0,
+    "Scale": 1.0
+  },
+  "Velocity": {
+    "Value": "0 0"
+  },
+  "Sprite": {
+    "Texture": "monster",
+    "Color": "#f000000",
+    "IsEquipped": false
+  },
+  "PlayerControlled": false,
+  "Clickable": true,
+  "Collision": {
+    "Hitbox": {
+      "X": -16,
+      "Y": -32,
+      "Width": 32,
+      "Height": 32
+    }
+  }
+}

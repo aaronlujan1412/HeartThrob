@@ -1,9 +1,10 @@
 {
+  "inherits": "_baseMonster",
   "Name": "Slime Man",
   "Transform": {
     "Position": "0 0",
     "Rotation": 0.0,
-    "Scale":1.0
+    "Scale": 1.0
   },
   "Velocity": {
     "Value": "0 0"
@@ -13,5 +14,7 @@
     "Color": "#428bca00",
     "IsEquipped": false
   },
-  "PlayerControlled": true
+  "PlayerControlled": true,
+  "Clickable": true,
+  "AnimationSet": "slimManJson"
 }

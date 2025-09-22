@@ -12,6 +12,8 @@ public class EntityTemplateReader : ContentTypeReader<EntityTemplate>
         
         template.Name = input.ReadString();
 
+        template.Inherits = input.ReadString();
+
         if (input.ReadBoolean())
         {
             var transform = new TransformData();
@@ -39,6 +41,8 @@ public class EntityTemplateReader : ContentTypeReader<EntityTemplate>
         }
 
         template.PlayerControlled = input.ReadBoolean();
+
+        template.Clickable = input.ReadBoolean();
 
         return template;
     }

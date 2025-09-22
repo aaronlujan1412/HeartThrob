@@ -72,7 +72,7 @@ public class Game1 : Game
         var movementSystem = new MovementSystem();
         _world.RegisterSystem(movementSystem);
 
-        var gameStateSystem = new GameStateSystem(_entityFactory);
+        var gameStateSystem = new GameStateSystem();
         _world.RegisterSystem(gameStateSystem);
 
         var uiSystem = new UISystem(_spawner);

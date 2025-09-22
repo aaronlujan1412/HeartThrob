@@ -5,7 +5,7 @@ using HeartThrobFramework.GameData.StateEnums;
 
 namespace HeartThrobFramework.Systems;
 
-public class GameStateSystem(EntityFactory ef) : ISystem
+public class GameStateSystem() : ISystem
 {
     public World World { get; set; } = null!;
 
