@@ -10,7 +10,8 @@ namespace HeartThrobFramework.GameData.Template.AnimationSet
         [property: JsonPropertyName("size")] Size Size,
         [property: JsonPropertyName("scale")] string Scale,
         [property: JsonPropertyName("frameTags")] FrameTag[] FrameTags,
-        [property: JsonPropertyName("layers")] Layer[] Layers
+        [property: JsonPropertyName("layers")] Layer[] Layers,
+        [property: JsonPropertyName("slices")] Slice[]? Slices = null
         );
 
     public record FrameTag(
@@ -18,14 +19,14 @@ namespace HeartThrobFramework.GameData.Template.AnimationSet
         [property: JsonPropertyName("from")] int From,
         [property: JsonPropertyName("to")] int To,
         [property: JsonPropertyName("direction")] string Direction,
-        [property: JsonPropertyName("color")] string ColorHex
+        [property: JsonPropertyName("color")] string? ColorHex = null
         );
 
     public record Layer(
         [property: JsonPropertyName("name")] string Name,
         [property: JsonPropertyName("opacity")] int Opacity,
         [property: JsonPropertyName("blendMode")] string BlendMode,
-        [property: JsonPropertyName("cels")] Cel[] Cels
+        [property: JsonPropertyName("cels")] Cel[]? Cels = null
         );
 
     public record Cel(
