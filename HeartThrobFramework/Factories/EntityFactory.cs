@@ -4,6 +4,7 @@ using HeartThrobFramework.Core.World;
 using HeartThrobFramework.GameData.Template;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using System.Text.Json;
 
 namespace HeartThrobFramework.Factories;
 
@@ -66,6 +67,12 @@ public class EntityFactory(World world, ContentManager content, TemplateManager 
         if (template.Clickable)
         {
             _world.AddComponent(entityId, new ClickableComponent());
+        }
+
+        if (!string.IsNullOrEmpty(template.AnimationSet))
+        {
+
+            JsonSerializer.Deserialize<>
         }
 
         return entityId;

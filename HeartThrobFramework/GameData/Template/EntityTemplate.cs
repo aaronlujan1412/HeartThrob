@@ -11,4 +11,5 @@ public class EntityTemplate
     public SpriteData? Sprite { get; set; }
     public bool PlayerControlled { get; set; }
     public bool Clickable { get; set; }
+    public string? AnimationSet { get; set; }
 }
