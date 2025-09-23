@@ -10,7 +10,8 @@ namespace HeartThrobFramework.GameData.Template.AnimationSet
         [property: JsonPropertyName("size")] Size Size,
         [property: JsonPropertyName("scale")] string Scale,
         [property: JsonPropertyName("frameTags")] FrameTag[] FrameTags,
-        [property: JsonPropertyName("layers")] Layer[] Layers
+        [property: JsonPropertyName("layers")] Layer[] Layers,
+        [property: JsonPropertyName("slices")] Slice[]? Slices = null
         );
 
     public record FrameTag(
