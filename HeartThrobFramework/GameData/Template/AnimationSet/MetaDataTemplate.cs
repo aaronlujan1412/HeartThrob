@@ -26,7 +26,7 @@ namespace HeartThrobFramework.GameData.Template.AnimationSet
         [property: JsonPropertyName("name")] string Name,
         [property: JsonPropertyName("opacity")] int Opacity,
         [property: JsonPropertyName("blendMode")] string BlendMode,
-        [property: JsonPropertyName("cels")] Cel[] Cels
+        [property: JsonPropertyName("cels")] Cel[]? Cels = null
         );
 
     public record Cel(
