@@ -16,15 +16,6 @@ namespace HeartThrobFramework.Managers
 
             PreviousMouseState = CurrentMouseState;
             CurrentMouseState = Mouse.GetState();
-            PreviousMouseState = new MouseState(
-                CurrentMouseState.X,
-                CurrentMouseState.Y,
-                CurrentMouseState.ScrollWheelValue,
-                CurrentMouseState.LeftButton,
-                CurrentMouseState.MiddleButton,
-                CurrentMouseState.RightButton,
-                CurrentMouseState.XButton1,
-                CurrentMouseState.XButton2);
         }
     }
 }
