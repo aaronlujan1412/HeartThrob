@@ -19,7 +19,7 @@ namespace HeartThrobFramework.GameData.Template.AnimationSet
         [property: JsonPropertyName("from")] int From,
         [property: JsonPropertyName("to")] int To,
         [property: JsonPropertyName("direction")] string Direction,
-        [property: JsonPropertyName("color")] string ColorHex
+        [property: JsonPropertyName("color")] string? ColorHex = null
         );
 
     public record Layer(
