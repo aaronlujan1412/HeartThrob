@@ -30,7 +30,7 @@ namespace HeartThrobFramework.GameData.Template.AnimationSet
 
     public record Cel(
         [property: JsonPropertyName("frame")] int Frame,
-        [property: JsonPropertyName("zIndex")] int ZIndex
+        [property: JsonPropertyName("zIndex")] int? ZIndex
         );
 
     public record Size(
@@ -40,13 +40,14 @@ namespace HeartThrobFramework.GameData.Template.AnimationSet
 
     public record Slice(
         [property: JsonPropertyName("name")] string Name,
-        [property: JsonPropertyName("color")] string Color,
+        [property: JsonPropertyName("color")] string? Color,
         [property: JsonPropertyName("keys")] Key[] Keys
         );
 
     public record Key(
         [property: JsonPropertyName("frame")] int Frame,
-        [property: JsonPropertyName("bounds")] Boundary Bounds
+        [property: JsonPropertyName("bounds")] Boundary Bounds,
+        [property: JsonPropertyName("pivot")] Pivot? Pivot = null
         );
 
     public record Boundary(
@@ -54,5 +55,10 @@ namespace HeartThrobFramework.GameData.Template.AnimationSet
         [property: JsonPropertyName("y")] int Y,
         [property: JsonPropertyName("w")] int W,
         [property: JsonPropertyName("h")] int H
+        );
+
+    public record Pivot(
+        [property: JsonPropertyName("x")] int X,
+        [property: JsonPropertyName("y")] int Y
         );
 }
